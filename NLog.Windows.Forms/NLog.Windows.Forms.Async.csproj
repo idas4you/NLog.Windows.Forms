@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net462;netcoreapp3.1;net6.0-windows;net8.0-windows;net10.0-windows</TargetFrameworks>
+		<TargetFrameworks>net45;netcoreapp3.1;net6.0-windows;net8.0-windows;net10.0-windows</TargetFrameworks>
 		<UseWindowsForms>true</UseWindowsForms>
-		<AssemblyTitle>NLog.Windows.Forms</AssemblyTitle>
+		<AssemblyTitle>NLog.Windows.Forms.Async</AssemblyTitle>
 		<AssemblyVersion>6.0.0.0</AssemblyVersion>
+		<Version>6.10.0</Version>
 		<Company>NLog</Company>
 		<Product>NLog.Windows.Forms</Product>
 		<Description>Extend NLog with targets for Windows Forms applications. For example: writing to a richtextbox or raising alert popups. </Description>
@@ -12,7 +13,7 @@
 		<Authors>NLog</Authors>
 
 		<PackageIcon>N.png</PackageIcon>
-		<PackageId>NLog.Windows.Forms</PackageId>
+		<PackageId>NLog.Windows.Forms.Async</PackageId>
 		<PackageProjectUrl>https://nlog-project.org</PackageProjectUrl>
 		<PackageTags>nlog target forms windows richtextbox winforms</PackageTags>
 		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>

@@ -31,7 +31,7 @@
 		<None Include="NLog.snk" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\NLog.Windows.Forms\NLog.Windows.Forms.csproj" />
+		<ProjectReference Include="..\NLog.Windows.Forms\NLog.Windows.Forms.Async.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
