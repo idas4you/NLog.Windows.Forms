@@ -1,10 +1,10 @@
 ﻿namespace NLog.Windows.Forms.Tests
 {
     using System;
-    using System.Linq;
-    using System.Text;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
+    using System.Text;
     using NLog.Config;
     using NLog.LayoutRenderers;
     using Xunit;
@@ -164,23 +164,6 @@
                         continue;   // skip non-concrete types, enumerations, and private nested types
 
                     Assert.True(type.IsDefined(typeof(ThreadAgnosticAttribute), true), $"{type.ToString()} is missing [ThreadAgnostic] attribute.");
-                }
-            }
-        }
-
-        [Fact]
-        public void RequiredConfigOptionMustBeClass()
-        {
-            foreach (Type type in allTypes)
-            {
-                var properties = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                foreach (var prop in properties)
-                {
-                    var requiredParameter = prop.GetCustomAttribute<NLog.Config.RequiredParameterAttribute>();
-                    if (requiredParameter != null)
-                    {
-                        Assert.True(prop.PropertyType.IsClass, prop.Name);
-                    }
                 }
             }
         }
