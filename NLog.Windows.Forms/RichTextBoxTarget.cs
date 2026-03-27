@@ -45,7 +45,7 @@ namespace NLog.Windows.Forms
     /// for WordColoring
     /// </example>
     [Target("RichTextBox")]
-    public sealed class RichTextBoxTarget : TargetWithLayout
+    public class RichTextBoxTarget : TargetWithLayout
     {
         /// <summary>
         /// Attempts to attach existing targets that have yet no textboxes to controls that exist on specified form if appropriate
@@ -345,13 +345,13 @@ namespace NLog.Windows.Forms
         /// <summary>
         /// Actual value of the <see cref="MessageRetention"/>.
         /// </summary>
-        private RichTextBoxTargetMessageRetentionStrategy messageRetention = RichTextBoxTargetMessageRetentionStrategy.None;
+        protected RichTextBoxTargetMessageRetentionStrategy messageRetention = RichTextBoxTargetMessageRetentionStrategy.None;
 
         /// <summary>
         /// A textbox to which we have logged last time. Used to prevent duplicating messages in the same textbox in case of config reload and RichTextBoxTargetMessageRetentionStrategy.All
         /// see https://github.com/NLog/NLog.Windows.Forms/pull/22
         /// </summary>
-        private RichTextBox lastLoggedTextBoxControl;
+        protected RichTextBox lastLoggedTextBoxControl;
 
         /// <summary>
         /// a lock object used to synchronize access to <see cref="messageQueue"/>
@@ -567,7 +567,7 @@ namespace NLog.Windows.Forms
         /// </summary>
         /// <param name="message">exception/log message format</param>
         /// <param name="args">message format arguments</param>
-        private static void HandleError(string message, params object[] args)
+        protected static void HandleError(string message, params object[] args)
         {
             if (LogManager.ThrowExceptions)
             {
@@ -579,7 +579,7 @@ namespace NLog.Windows.Forms
         /// <summary>
         /// Used to create accessory form with textbox in case specified form or control were not found during InitializeTarget() and AllowAccessoryFormCreation==true
         /// </summary>
-        private void CreateAccessoryForm()
+        protected void CreateAccessoryForm()
         {
             if (FormName == null)
             {
@@ -787,7 +787,7 @@ namespace NLog.Windows.Forms
         /// <param name="rule">matching coloring rule</param>
         /// <param name="logEvent">original logEvent</param>
         /// <returns>true if the message was actually sent (i.e. <see cref="TargetRichTextBox"/> is not null and not disposed, and no exception happened during message send)</returns>
-        private bool DoSendMessageToTextbox(string logMessage, RichTextBoxRowColoringRule rule, LogEventInfo logEvent)
+        protected bool DoSendMessageToTextbox(string logMessage, RichTextBoxRowColoringRule rule, LogEventInfo logEvent)
         {
             RichTextBox textbox = TargetRichTextBox;
             try
@@ -822,7 +822,7 @@ namespace NLog.Windows.Forms
         /// </summary>
         /// <param name="logEvent"></param>
         /// <returns></returns>
-        private RichTextBoxRowColoringRule FindMatchingRule(LogEventInfo logEvent)
+        protected RichTextBoxRowColoringRule FindMatchingRule(LogEventInfo logEvent)
         {
             //custom rules first
             if (RowColoringRules.Count > 0)
@@ -977,7 +977,7 @@ namespace NLog.Windows.Forms
         /// <param name="logMessage">a message to store</param>
         /// <param name="rule">a corresponding coloring rule</param>
         /// <param name="logEvent">original LogEvent</param>
-        private void StoreMessage(string logMessage, RichTextBoxRowColoringRule rule, LogEventInfo logEvent)
+        protected void StoreMessage(string logMessage, RichTextBoxRowColoringRule rule, LogEventInfo logEvent)
         {
             lock (messageQueueLock)
             {

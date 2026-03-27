@@ -4,19 +4,19 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<AssemblyTitle>NLog.Windows.Forms</AssemblyTitle>
 		<AssemblyVersion>5.0.0.0</AssemblyVersion>
-		<Company>NLog</Company>
-		<Product>NLog.Windows.Forms</Product>
+		<Company></Company>
+		<Product>NLog.Windows.Forms.Async</Product>
 		<Description>Extend NLog with targets for Windows Forms applications. For example: writing to a richtextbox or raising alert popups. </Description>
 		<CurrentYear>$([System.DateTime]::Now.ToString(yyyy))</CurrentYear>
 		<Copyright>Copyright (c) 2014-$(CurrentYear) NLog Project - https://nlog-project.org/ </Copyright>
-		<Authors>NLog</Authors>
+		<Authors>idas4you</Authors>
 
 		<PackageIcon>N.png</PackageIcon>
-		<PackageId>NLog.Windows.Forms</PackageId>
+		<PackageId>NLog.Windows.Forms.Async</PackageId>
 		<PackageProjectUrl>https://nlog-project.org</PackageProjectUrl>
-		<PackageTags>nlog target forms windows richtextbox winforms</PackageTags>
+		<PackageTags>nlog target forms windows richtextbox winforms async</PackageTags>
 		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/NLog/NLog.Windows.Forms.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/idas4you/NLog.Windows.Forms.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>
