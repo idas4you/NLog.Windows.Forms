@@ -58,7 +58,7 @@ namespace NLog.Windows.Forms
         /// Gets or sets the name of the Form on which the control is located.
         /// </summary>
         /// <docgen category='Form Options' order='10' />
-        public Layout? FormName { get; set; }
+        public Layout FormName { get; set; }
 
         /// <summary>
         /// Gets or sets whether new log entry are added to the start or the end of the control
@@ -82,7 +82,7 @@ namespace NLog.Windows.Forms
         {
             string logMessage = RenderLogEvent(Layout, logEvent);
 
-            Form? form = null;
+            Form form = null;
 
             if (Form.ActiveForm != null)
             {

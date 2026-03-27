@@ -36,7 +36,7 @@ namespace NLog.Windows.Forms
         /// <param name="name">Name of the control.</param>
         /// <param name="searchControl">Control in which we're searching for control.</param>
         /// <returns>A value of null if no control has been found.</returns>
-        internal static Control? FindControl(string name, Control? searchControl)
+        internal static Control FindControl(string name, Control searchControl)
         {
             if (searchControl is null || searchControl.Name == name)
             {
@@ -61,11 +61,11 @@ namespace NLog.Windows.Forms
         /// <param name="name">Name of the ToolStripItem</param>
         /// <param name="searchCollection">Collection of ToolStripItem we are looking for the item in.</param>
         /// <returns>A value of null of no item has been found.</returns>
-        internal static ToolStripItem? FindToolStripItem(string name, ToolStripItemCollection searchCollection)
+        internal static ToolStripItem FindToolStripItem(string name, ToolStripItemCollection searchCollection)
         {
-            foreach (ToolStripItem? childItem in searchCollection)
+            foreach (ToolStripItem childItem in searchCollection)
             {
-                if (childItem?.Name == name)
+                if (childItem != null && childItem.Name == name)
                 {
                     return childItem;
                 }
@@ -92,7 +92,7 @@ namespace NLog.Windows.Forms
         /// <returns>
         /// A value of null if no control has been found.
         /// </returns>
-        internal static TControl? FindControl<TControl>(string name, Control? searchControl)
+        internal static TControl FindControl<TControl>(string name, Control searchControl)
             where TControl : Control
         {
             if (searchControl is null)
@@ -173,7 +173,7 @@ namespace NLog.Windows.Forms
             return f;
         }
 
-        private static Icon? GetNLogIcon()
+        private static Icon GetNLogIcon()
         {
             using (var stream = typeof(FormHelper).Assembly.GetManifestResourceStream("NLog.Windows.Forms.Resources.NLog.ico"))
             {

@@ -59,7 +59,7 @@ namespace NLog.Windows.Forms
         /// Gets or sets the name of the Form on which the ToolStrip is located.
         /// </summary>
         /// <docgen category='Form Options' order='10' />
-        public Layout? FormName { get; set; }
+        public Layout FormName { get; set; }
 
         /// <inheritdoc />
         protected override void InitializeTarget()
@@ -82,7 +82,7 @@ namespace NLog.Windows.Forms
         {
             string logMessage = RenderLogEvent(Layout, logEvent);
 
-            Form? form = null;
+            Form form = null;
 
             if (Form.ActiveForm != null)
             {

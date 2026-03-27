@@ -20,14 +20,14 @@ namespace NLog.Windows.Forms
         /// 
         /// </summary>
         /// <docgen category="Rule Matching Options" order="10"/>
-        public Layout? Regex { get; set; }
+        public Layout Regex { get; set; }
 
         /// <summary>
         /// Gets or sets the text to be matched. You must specify either <c>text</c> or <c>regex</c>.
         /// 
         /// </summary>
         /// <docgen category="Rule Matching Options" order="10"/>
-        public Layout? Text { get; set; }
+        public Layout Text { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether to match whole words only.

@@ -116,7 +116,7 @@ namespace NLog.Windows.Forms
         /// </summary>
         /// <param name="control">a RichTextBox control for which the target is to be returned</param>
         /// <returns>A RichTextBoxTarget attached to a given control or <code>null</code> if no target is attached</returns>
-        public static RichTextBoxTarget? GetTargetByControl(RichTextBox control)
+        public static RichTextBoxTarget GetTargetByControl(RichTextBox control)
         {
             var configuration = LogManager.Configuration;
             if (configuration is null)
@@ -133,7 +133,7 @@ namespace NLog.Windows.Forms
         /// <param name="control">a RichTextBox control for which the target is to be returned</param>
         /// <returns>A RichTextBoxTarget attached to a given control or <code>null</code> if no target is attached</returns>
         /// /// <param name="configuration">NLog's configuration. <c>null</c> is not allowed</param>
-        public static RichTextBoxTarget? GetTargetByControl(RichTextBox control, LoggingConfiguration configuration)
+        public static RichTextBoxTarget GetTargetByControl(RichTextBox control, LoggingConfiguration configuration)
         {
             if (configuration is null)
             {
@@ -213,7 +213,7 @@ namespace NLog.Windows.Forms
         /// Gets the default set of row coloring rules which applies when <see cref="UseDefaultRowColoringRules"/> is set to true.
         /// </summary>
         public static ReadOnlyCollection<RichTextBoxRowColoringRule> DefaultRowColoringRules => _defaultRowColoringRules ?? (_defaultRowColoringRules = _defaultRowColoringRuleList.AsReadOnly());
-        protected static ReadOnlyCollection<RichTextBoxRowColoringRule>? _defaultRowColoringRules;
+        protected static ReadOnlyCollection<RichTextBoxRowColoringRule> _defaultRowColoringRules;
         protected static readonly List<RichTextBoxRowColoringRule> _defaultRowColoringRuleList = CreateDefaultColoringRules();
 
         /// <summary>
@@ -307,13 +307,13 @@ namespace NLog.Windows.Forms
         /// Gets or sets the form to log to.
         /// </summary>
         [NLogConfigurationIgnoreProperty]
-        public Form? TargetForm { get; set; }
+        public Form TargetForm { get; set; }
 
         /// <summary>
         /// Gets or sets the rich text box to log to.
         /// </summary>
         [NLogConfigurationIgnoreProperty]
-        public RichTextBox? TargetRichTextBox { get; set; }
+        public RichTextBox TargetRichTextBox { get; set; }
 
         /// <summary>
         /// Form created (true) or used an existing (false). Set after <see cref="InitializeTarget"/>. Can be true only if <see cref="AllowAccessoryFormCreation"/> is set to true (default).
@@ -371,7 +371,7 @@ namespace NLog.Windows.Forms
         /// A textbox to which we have logged last time. Used to prevent duplicating messages in the same textbox in case of config reload and RichTextBoxTargetMessageRetentionStrategy.All
         /// see https://github.com/NLog/NLog.Windows.Forms/pull/22
         /// </summary>
-        protected RichTextBox? lastLoggedTextBoxControl;
+        protected RichTextBox lastLoggedTextBoxControl;
 
         /// <summary>
         /// a lock object used to synchronize access to <see cref="messageQueue"/>
@@ -381,7 +381,7 @@ namespace NLog.Windows.Forms
         /// <summary>
         /// A queue used to store messages based on <see cref="MessageRetention"/>.
         /// </summary>
-        protected volatile Queue<MessageInfo>? messageQueue;
+        protected volatile Queue<MessageInfo> messageQueue;
 
         /// <summary>
         /// If set to true, using "rtb-link" renderer (<see cref="RichTextBoxLinkLayoutRenderer"/>) would create clickable links in the control.
@@ -431,7 +431,7 @@ namespace NLog.Windows.Forms
         /// Event fired when the user clicks on a link in the control created by the "rtb-link" renderer (<see cref="RichTextBoxLinkLayoutRenderer"/>).
         /// <seealso cref="DelLinkClicked"/>
         /// </summary>
-        public event DelLinkClicked? LinkClicked;
+        public event DelLinkClicked LinkClicked;
 
         /// <summary>
         /// Actual value of the <see cref="LinkClicked"/> property
@@ -446,7 +446,7 @@ namespace NLog.Windows.Forms
         /// <summary>
         /// A map from link id to a corresponding log event
         /// </summary>
-        protected Dictionary<int, LogEventInfo>? linkedEvents;
+        protected Dictionary<int, LogEventInfo> linkedEvents;
 
         /// <summary>
         /// Returns number of events stored for active links in the control. 
@@ -481,13 +481,13 @@ namespace NLog.Windows.Forms
         /// Used to capture link placeholders in <see cref="SendTheMessageToRichTextBox"/>
         /// Lazily initialized in <see cref="SupportLinks"/>.set(true). Assure checking <see cref="SupportLinks"/> before accessing the field 
         /// </summary>
-        protected static Regex? linkAddRegex;
+        protected static Regex linkAddRegex;
 
         /// <summary>
         /// Used to parse RTF with links when removing excess lines in <see cref="SendTheMessageToRichTextBox"/>
         /// Lazily initialized in <see cref="SupportLinks"/>.set(true). Assure checking <see cref="SupportLinks"/> before accessing the field
         /// </summary>
-        protected static Regex? linkRemoveRtfRegex;
+        protected static Regex linkRemoveRtfRegex;
 
         /// <summary>
         /// Initializes the target. Can be used by inheriting classes
@@ -504,8 +504,8 @@ namespace NLog.Windows.Forms
             }
 
             CreatedForm = false;
-            Form? openFormByName;
-            RichTextBox? targetControl;
+            Form openFormByName;
+            RichTextBox targetControl;
 
             var formName = RenderLogEvent(FormName, LogEventInfo.CreateNullEvent());
             var controlName = RenderLogEvent(ControlName, LogEventInfo.CreateNullEvent());
@@ -675,7 +675,7 @@ namespace NLog.Windows.Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void TargetRichTextBox_LinkClicked(object? sender, LinkClickedEventArgs e)
+        protected void TargetRichTextBox_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             Match match = Regex.Match(e.LinkText ?? string.Empty, "#" + LinkPrefix + @"(\d+)");
             if (!match.Success)
@@ -693,7 +693,7 @@ namespace NLog.Windows.Forms
                 return;
             }
 
-            LogEventInfo? logEvent = null;
+            LogEventInfo logEvent = null;
             lock (linkedEventsLock)
             {
                 linkedEvents?.TryGetValue(id, out logEvent);
@@ -846,11 +846,10 @@ namespace NLog.Windows.Forms
             HandleMessageRetension(textbox, logEvent, logMessage, matchingRule, messageSent);
         }
 
-        protected void HandleMessageRetension(RichTextBox? textbox, LogEventInfo logEvent, string logMessage, RichTextBoxRowColoringRule matchingRule, bool messageSent)
+        protected void HandleMessageRetension(RichTextBox textbox, LogEventInfo logEvent, string logMessage, RichTextBoxRowColoringRule matchingRule, bool messageSent)
         {
             if (messageSent)
             {
-                //remember last logged text box
                 lastLoggedTextBoxControl = textbox;
             }
 
@@ -943,7 +942,7 @@ namespace NLog.Windows.Forms
             return RichTextBoxRowColoringRule.Default;
         }
 
-        protected static Color GetColorFromString(string? color, Color defaultColor)
+        protected static Color GetColorFromString(string color, Color defaultColor)
         {
             if (string.IsNullOrEmpty(color) || color == "Empty")
             {
@@ -975,7 +974,7 @@ namespace NLog.Windows.Forms
                     var wordRuleIgnoreCase = wordRule.IgnoreCase?.RenderValue(logEvent) ?? false;
 
                     var matches = wordRule.ResolveRegEx(wordRulePattern, wordRuleText, wordRuleWholeWords, wordRuleIgnoreCase).Matches(textBox.Text, startIndex);
-                    foreach (Match? match in matches)
+                    foreach (Match match in matches)
                     {
                         if (match is null)
                             continue;
@@ -992,7 +991,7 @@ namespace NLog.Windows.Forms
 
             if (SupportLinks)
             {
-                object? linkInfoObj = null;
+                object linkInfoObj = null;
                 if (logEvent.HasProperties)
                 {
                     logEvent.Properties.TryGetValue(RichTextBoxLinkLayoutRenderer.LinkInfo.PropertyName, out linkInfoObj);
@@ -1007,10 +1006,10 @@ namespace NLog.Windows.Forms
                     textBox.SelectionStart = startIndex;
                     textBox.SelectionLength = textBox.TextLength - textBox.SelectionStart;
                     string addedText = textBox.SelectedText;
-                    var matches = linkAddRegex?.Matches(addedText); //only access regex after checking SupportLinks, as it assures the initialization
+                    var matches = linkAddRegex?.Matches(addedText);
                     if (matches?.Count > 0)
                     {
-                        for (int i = matches.Count - 1; i >= 0; --i)    //backwards order, so the string positions are not affected
+                        for (int i = matches.Count - 1; i >= 0; --i)
                         {
                             Match match = matches[i];
                             var linkText = linkInfo.GetValue(match.Value);
@@ -1018,18 +1017,18 @@ namespace NLog.Windows.Forms
                             {
                                 textBox.SelectionStart = startIndex + match.Index;
                                 textBox.SelectionLength = match.Length;
-#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618
                                 FormHelper.ChangeSelectionToLink(textBox, linkText, LinkPrefix + logEvent.SequenceID);
-#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore CS0618
                                 linksAdded = true;
                             }
                         }
                     }
                     if (linksAdded && linkedEvents != null)
                     {
-#pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS0618
                         linkedEvents[logEvent.SequenceID] = logEvent;
-#pragma warning restore CS0618 // Type or member is obsolete
+#pragma warning restore CS0618
                     }
                 }
             }
@@ -1051,11 +1050,10 @@ namespace NLog.Windows.Forms
                         if (SupportLinks)
                         {
                             string selectedRtf = textBox.SelectedRtf;
-                            //only access regex after checking SupportLinks, as it assures the initialization
                             var matches = linkRemoveRtfRegex?.Matches(selectedRtf);
                             if (matches?.Count > 0)
                             {
-                                foreach (Match? match in matches)
+                                foreach (Match match in matches)
                                 {
                                     if (match != null && int.TryParse(match.Groups[1].Value, out var id))
                                     {

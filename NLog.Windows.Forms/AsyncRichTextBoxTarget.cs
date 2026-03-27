@@ -1,11 +1,8 @@
 using NLog.Common;
 using NLog.Targets;
 using System;
-using System.Collections.Generic;
-#if NET35 || NET3
-#else
 using System.Collections.Concurrent;
-#endif
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
@@ -49,11 +46,7 @@ namespace NLog.Windows.Forms
     [Target("RichTextBox")]
     public sealed class AsyncRichTextBoxTarget : RichTextBoxTarget
     {
-#if NET35 || NET3
-        private Queue<LogEventInfo> _logEventInfoQueue = new Queue<LogEventInfo>();                   
-#else
         private ConcurrentQueue<LogEventInfo> _logEventInfoQueue = new ConcurrentQueue<LogEventInfo>();
-#endif
 
         private Thread _thread = null;
         private Object _lock = new object();
@@ -74,14 +67,7 @@ namespace NLog.Windows.Forms
         /// <param name="logEvent">The logging event.</param>
         protected override void Write(LogEventInfo logEvent)
         {
-#if NET35 || NET3
-    lock (_lock)
-    {
-        _logEventInfoQueue.Enqueue(logEvent);
-    }
-#else
             _logEventInfoQueue.Enqueue(logEvent);
-#endif
 
             if (_thread == null)
             {
@@ -97,16 +83,8 @@ namespace NLog.Windows.Forms
                                 logMsgs.Clear();
                                 LogEventInfo lastInfo = null;
                                 LogEventInfo info = null;
-#if NET35 || NET3
-                        lock (_lock)
-                        {
-                            while (_logEventInfoQueue.Count > 0)
-                            {
-                                info = _logEventInfoQueue.Dequeue();
-#else
                                 while (_logEventInfoQueue.TryDequeue(out info))
                                 {
-#endif
                                     if (lastInfo != null)
                                     {
                                         if (lastInfo.Level != info.Level)
@@ -122,9 +100,7 @@ namespace NLog.Windows.Forms
 
                                     lastInfo = info;
                                 }
-#if NET35 || NET3
-                        }
-#endif
+
                                 if (logMsgs.Count > 0)
                                 {
                                     var logEventInfo = new LogEventInfo(lastInfo.Level, lastInfo.LoggerName, string.Join("\n", logMsgs.Select(x => Layout.Render(x)).ToArray()));

@@ -24,7 +24,7 @@ namespace NLog.Windows.Forms
         /// Gets or sets the condition that must be met in order to set the specified font color.
         /// </summary>
         /// <docgen category="Rule Matching Options" order="10"/>
-        public ConditionExpression? Condition { get; set; }
+        public ConditionExpression Condition { get; set; }
 
         /// <summary>
         /// Gets or sets the font color.

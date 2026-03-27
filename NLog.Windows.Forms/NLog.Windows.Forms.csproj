@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net35;netcoreapp3.1;net6.0-windows;net8.0-windows;net10.0-windows</TargetFrameworks>
+		<TargetFrameworks>net462;netcoreapp3.1;net6.0-windows;net8.0-windows;net10.0-windows</TargetFrameworks>
 		<UseWindowsForms>true</UseWindowsForms>
 		<AssemblyTitle>NLog.Windows.Forms</AssemblyTitle>
 		<AssemblyVersion>6.0.0.0</AssemblyVersion>
@@ -20,25 +20,24 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>
-Changelog:
-      
-- Added NET10 targetframework
+			Changelog:
+
+			- Added NET10 targetframework
 		</PackageReleaseNotes>
 
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>NLog.snk</AssemblyOriginatorKeyFile>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<IsPackable>true</IsPackable>   
+		<IsPackable>true</IsPackable>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<!-- EmbedUntrackedSources for deterministic build -->
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
-    <DisableImplicitFrameworkReferences Condition=" '$(TargetFramework)' == 'net35' ">true</DisableImplicitFrameworkReferences>
-    <Nullable>enable</Nullable>
-    <LangVersion Condition="'$(TargetFramework)' == 'net35'">9</LangVersion>
-    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
-    <IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))">true</IsTrimmable>
-    <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
+		<LangVersion Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">9</LangVersion>
+		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+		<IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))">true</IsTrimmable>
+		<IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
+		<FileVersion>6.0.3</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -46,10 +45,10 @@ Changelog:
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' ">
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
+	<ItemGroup Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' ">
+		<Reference Include="System" />
+		<Reference Include="System.Core" />
+		<Reference Include="System.Drawing" />
 		<Reference Include="System.Windows.Forms" />
 	</ItemGroup>
 
