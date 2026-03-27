@@ -1,13 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net461</TargetFramework>
+		<TargetFramework>net462</TargetFramework>
 		<EnableDefaultItems>false</EnableDefaultItems>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<None Include="*">
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="NLog.Schema" Version="6.0.3" />
 	</ItemGroup>
 
 </Project>

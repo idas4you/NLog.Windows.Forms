@@ -151,7 +151,9 @@ namespace NLog.Windows.Forms
                 lastLoggedTextBoxControl = null;
                 if (AllowAccessoryFormCreation)
                 {
-                    CreateAccessoryForm();
+                    var formName = RenderLogEvent(FormName, logEvent);
+                    var controlName = RenderLogEvent(ControlName, logEvent);
+                    CreateAccessoryForm(formName, controlName);
                 }
                 else if (messageRetention == RichTextBoxTargetMessageRetentionStrategy.None)
                 {
