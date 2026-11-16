@@ -1250,72 +1250,71 @@ namespace NLog.Windows.Forms.Tests
             bool linkClickedFromHandler = false;
             string linkTextFromHandler = null;
             LogEventInfo logEventFromHandler = null;
-            var cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = cancellationTokenSource.Token;
 
+            Form form = target.TargetForm;
+            RichTextBox textBox = target.TargetRichTextBox;
 
             RichTextBoxTarget.DelLinkClicked clickHandler = (RichTextBoxTarget sender, string linkText, LogEventInfo logEvent) =>
             {
-                cancellationTokenSource.Cancel();
                 //actual checks moved to main code to make exceptions caught by the test runner.
                 linkClickedFromHandler = true;
                 linkTextFromHandler = linkText;
                 logEventFromHandler = logEvent;
-                target.TargetForm.Close();
+                form.Close();
             };
 
-            RichTextBoxTarget.GetTargetByControl(target.TargetRichTextBox).LinkClicked += clickHandler;
+            RichTextBoxTarget.GetTargetByControl(textBox).LinkClicked += clickHandler;
 
-            Task.Run(() =>
+            using (var timeoutTimer = new System.Windows.Forms.Timer())
             {
-                // max wait time. After that. Stop 
-                int timeout = 1_000;
-                Thread.Sleep(timeout);
-                target.TargetForm.Close();
-                throw new TimeoutException("Waited to long for click");
-
-            }, cancellationToken);
-
-            //simulate clicking on a link
-            Task.Run(() =>
-            {
-                for (int i = 0; i < 3; ++i) //needs a number of clicks. Probably - to make application focused, form focused, and finally link clicked.
+                // max wait time. After that, stop the message loop so the asserts below can report the failure
+                timeoutTimer.Interval = 5_000;
+                timeoutTimer.Tick += (sender, e) =>
                 {
-                    InvokeLambda(target.TargetRichTextBox, () =>
-                    {
-                        Point scrPoint = target.TargetRichTextBox.PointToScreen(new Point(5, 5));
-                        LeftMouseClick(scrPoint.X, scrPoint.Y);
-                    });
-                }
-            });
+                    timeoutTimer.Stop();
+                    form.Close();
+                };
 
+                //simulate clicking on a link, once the message loop is running
+                textBox.BeginInvoke(new Action(() =>
+                {
+                    timeoutTimer.Start();
 
-            Application.Run(target.TargetForm);
+                    Point linkPoint = textBox.GetPositionFromCharIndex(textBox.Text.IndexOf("link", StringComparison.Ordinal) + 1);
+                    linkPoint.Offset(1, textBox.Font.Height / 2);
+                    LeftMouseClick(textBox, linkPoint);
+                }));
+
+                Application.Run(form);
+            }
 
             Assert.True(linkClickedFromHandler); //check that we have actually clicked on a link, not just missed anything
             Assert.True("link" == linkTextFromHandler);
             Assert.True("Test" == logEventFromHandler.Message);
         }
 
-        #region mouse click smulation
-        //http://stackoverflow.com/a/8273118/376066
+        #region mouse click simulation
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern bool SetCursorPos(int x, int y);
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        private static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+        private const int WM_LBUTTONDOWN = 0x0201;
+        private const int WM_LBUTTONUP = 0x0202;
+        private const int MK_LBUTTON = 0x0001;
 
-        private const int MOUSEEVENTF_ABSOLUTE = 0x8000;
-        private const int MOUSEEVENTF_LEFTDOWN = 0x02;
-        private const int MOUSEEVENTF_LEFTUP = 0x04;
-
-        //This simulates a left mouse click
-        private static void LeftMouseClick(int xpos, int ypos)
+        /// <summary>
+        /// Simulates a left mouse click by sending the mouse messages directly to the control.
+        /// Unlike moving the real cursor, this does not depend on the window being visible, focused or in the foreground.
+        /// </summary>
+        private static void LeftMouseClick(Control control, Point clientPoint)
         {
-            SetCursorPos(xpos, ypos);
-            mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_LEFTDOWN, xpos, ypos, 0, 0);
-            mouse_event(MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_LEFTUP, xpos, ypos, 0, 0);
+            IntPtr position = (IntPtr)((clientPoint.Y << 16) | (clientPoint.X & 0xFFFF));
+
+            SendMessage(control.Handle, WM_LBUTTONDOWN, (IntPtr)MK_LBUTTON, position);
+            if (!control.IsDisposed && control.IsHandleCreated)
+            {
+                SendMessage(control.Handle, WM_LBUTTONUP, IntPtr.Zero, position);
+            }
         }
         #endregion
 
