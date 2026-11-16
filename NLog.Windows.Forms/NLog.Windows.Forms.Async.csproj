@@ -24,6 +24,7 @@
 			Changelog:
 
 			- Added NET10 targetframework
+			- Updated NLog to 6.2.2
 		</PackageReleaseNotes>
 
 		<SignAssembly>true</SignAssembly>
@@ -41,9 +42,15 @@
 		<FileVersion>6.0.3</FileVersion>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<NuGetAudit>true</NuGetAudit>
+		<NuGetAuditMode>all</NuGetAuditMode>
+		<NuGetAuditLevel>low</NuGetAuditLevel>
+		<WarningsAsErrors>$(WarningsAsErrors);NU1900;NU1901;NU1902;NU1903;NU1904</WarningsAsErrors>
+	</PropertyGroup>
+
 	<ItemGroup>
-		<PackageReference Include="NLog" Version="6.0.3" />
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+		<PackageReference Include="NLog" Version="6.2.2" />
 	</ItemGroup>
 
 	<ItemGroup Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' ">
