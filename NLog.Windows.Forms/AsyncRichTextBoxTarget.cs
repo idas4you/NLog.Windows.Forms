@@ -43,7 +43,7 @@ namespace NLog.Windows.Forms
     /// </code>
     /// for WordColoring
     /// </example>
-    [Target("RichTextBox")]
+    [Target("AsyncRichTextBox")]
     public sealed class AsyncRichTextBoxTarget : RichTextBoxTarget
     {
         private ConcurrentQueue<LogEventInfo> _logEventInfoQueue = new ConcurrentQueue<LogEventInfo>();

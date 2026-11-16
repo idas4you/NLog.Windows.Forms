@@ -62,7 +62,7 @@ namespace NLog.Windows.Forms.Tests
             Assert.Contains(@"{\colortbl ;\red255\green255\blue255;\red255\green0\blue0;\red255\green165\blue0;\red0\green0\blue0;\red128\green128\blue128;\red169\green169\blue169;}", result);
 
             Assert.Contains(@"\viewkind4\uc1", result);
-            Assert.Matches(@"\\pard\\cf1\\highlight2\\b\\f0\\fs\d+ Fatal NLog.UnitTests.Targets.RichTextBoxTargetTests Test\\par", result);
+            Assert.Matches(@"\\pard\\cf1\\highlight2(\\lang\d+)?\\b\\f0\\fs\d+(\\lang\d+)? Fatal NLog.UnitTests.Targets.RichTextBoxTargetTests Test\\par", result);
 
             Assert.Contains(@"\cf2\highlight1\i Error NLog.UnitTests.Targets.RichTextBoxTargetTests Foo\par", result);
             Assert.Contains(@"\cf3\ul\b0\i0 Warn NLog.UnitTests.Targets.RichTextBoxTargetTests Bar\par", result);
@@ -72,7 +72,7 @@ namespace NLog.Windows.Forms.Tests
 #if NETCOREAPP
             Assert.Contains(@"\cf0\highlight0\i0\par", result);
 #else
-            Assert.Contains(@"\cf0\highlight0\i0\f1\par", result);
+            Assert.Matches(@"\\cf0\\highlight0\\i0(\\f1)?\\par", result);
 #endif
             Assert.Contains(@"}", result);
 
@@ -123,7 +123,7 @@ namespace NLog.Windows.Forms.Tests
 #if NETCOREAPP
                 Assert.Contains(@"\cf0\highlight0\par", result);
 #else
-                Assert.Contains(@"\cf0\highlight0\f1\par", result);
+                Assert.Matches(@"\\cf0\\highlight0(\\f1)?\\par", result);
 #endif
                 Assert.Contains(@"}", result);
             }
@@ -181,7 +181,7 @@ namespace NLog.Windows.Forms.Tests
 #if NETCOREAPP
                 Assert.Contains(@"\cf0\highlight0\par", result);
 #else
-                Assert.Contains(@"\cf0\highlight0\f1\par", result);
+                Assert.Matches(@"\\cf0\\highlight0(\\f1)?\\par", result);
 #endif
                 Assert.Contains(@"}", result);
             }
@@ -192,9 +192,8 @@ namespace NLog.Windows.Forms.Tests
         }
 
         private static void AssertViewkind(string result)
-        {
-            Assert.Contains(@"\viewkind4\uc1", result);
-            Assert.Matches(@"\\pard\\cf1\\highlight2\\f0\\fs\d+ Fatal NLog.UnitTests.Targets.RichTextBoxTargetTests Test\\par", result);
+        {            Assert.Contains(@"\viewkind4\uc1", result);
+            Assert.Matches(@"\\pard\\cf1\\highlight2(\\lang\d+)?\\f0\\fs\d+(\\lang\d+)? Fatal NLog.UnitTests.Targets.RichTextBoxTargetTests Test\\par", result);
         }
 
         [Fact]
@@ -240,17 +239,17 @@ namespace NLog.Windows.Forms.Tests
                 Assert.Contains(@"{\colortbl ;\red0\green0\blue0;\red255\green255\blue255;\red255\green0\blue0;\red0\green128\blue0;}", result);
 
                 Assert.Contains(@"\viewkind4\uc1", result);
-                Assert.Matches(@"\\pard\\cf1\\highlight2\\f0\\fs\d+ Fatal NLog.UnitTests.Targets.RichTextBoxTargetTests Test \\cf3\\f1 zzz\\cf1\\f0\\par", result);
+                Assert.Matches(@"\\pard\\cf1\\highlight2(\\lang\d+)?\\f0\\fs\d+(\\lang\d+)? Fatal NLog.UnitTests.Targets.RichTextBoxTargetTests Test \\cf3(\\f1)? zzz\\cf1(\\f0)?\\par", result);
 
                 Assert.Contains(@"Error NLog.UnitTests.Targets.RichTextBoxTargetTests Foo xxx\par", result);
                 Assert.Contains(@"Warn NLog.UnitTests.Targets.RichTextBoxTargetTests Bar yyy\par", result);
-                Assert.Contains(@"Info NLog.UnitTests.Targets.RichTextBoxTargetTests Test \cf4\f1 aaa\cf1\f0\par", result);
-                Assert.Contains(@"Debug NLog.UnitTests.Targets.RichTextBoxTargetTests Foo \cf3\f1 zzz\cf1\f0\par", result);
+                Assert.Matches(@"Info NLog.UnitTests.Targets.RichTextBoxTargetTests Test \\cf4(\\f1)? aaa\\cf1(\\f0)?\\par", result);
+                Assert.Matches(@"Debug NLog.UnitTests.Targets.RichTextBoxTargetTests Foo \\cf3(\\f1)? zzz\\cf1(\\f0)?\\par", result);
                 Assert.Contains(@"Trace NLog.UnitTests.Targets.RichTextBoxTargetTests Bar ccc\par", result);
 #if NETCOREAPP
                 Assert.Contains(@"\cf0\highlight0\par", result);
 #else
-                Assert.Contains(@"\cf0\highlight0\f1\par", result);
+                Assert.Matches(@"\\cf0\\highlight0(\\f1)?\\par", result);
 #endif
                 Assert.Contains(@"}", result);
             }

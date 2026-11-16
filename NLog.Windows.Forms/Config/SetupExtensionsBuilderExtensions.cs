@@ -16,6 +16,7 @@ namespace NLog
             return setupBuilder.RegisterTarget<FormControlTarget>("FormControl").
                 RegisterTarget<MessageBoxTarget>("MessageBox").
                 RegisterTarget<RichTextBoxTarget>("RichTextBox").
+                RegisterTarget<AsyncRichTextBoxTarget>("AsyncRichTextBox").
                 RegisterTarget<ToolStripItemTarget>("ToolStripItem").
                 RegisterLayoutRenderer<RichTextBoxLinkLayoutRenderer>("rtb-link").
                 RegisterType<RichTextBoxRowColoringRule>().
