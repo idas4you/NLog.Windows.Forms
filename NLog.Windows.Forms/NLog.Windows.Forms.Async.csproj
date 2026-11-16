@@ -14,10 +14,10 @@
 
 		<PackageIcon>N.png</PackageIcon>
 		<PackageId>NLog.Windows.Forms.Async</PackageId>
-		<PackageProjectUrl>https://nlog-project.org</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/idas4you/NLog.Windows.Forms</PackageProjectUrl>
 		<PackageTags>nlog target forms windows richtextbox winforms</PackageTags>
 		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
-		<RepositoryUrl>https://github.com/NLog/NLog.Windows.Forms.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/idas4you/NLog.Windows.Forms.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageReleaseNotes>

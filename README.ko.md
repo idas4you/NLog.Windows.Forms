@@ -1,9 +1,8 @@
 # NLog.Windows.Forms
 [English](README.md) | **한국어**
 
-[![Version](https://badge.fury.io/nu/NLog.Windows.Forms.svg)](https://www.nuget.org/packages/NLog.Windows.Forms)
-[![CI](https://github.com/NLog/NLog.Windows.Forms/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/NLog/NLog.Windows.Forms/actions/workflows/ci.yml)
-[![codecov.io](https://codecov.io/github/NLog/NLog.Windows.Forms/coverage.svg?branch=master)](https://codecov.io/github/NLog/NLog.Windows.Forms?branch=master)
+[![Version](https://badge.fury.io/nu/NLog.Windows.Forms.Async.svg)](https://www.nuget.org/packages/NLog.Windows.Forms.Async)
+[![CI](https://github.com/idas4you/NLog.Windows.Forms/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/idas4you/NLog.Windows.Forms/actions/workflows/ci.yml)
 
 이 패키지는 Windows Forms 애플리케이션에 로그 출력을 표시하는 NLog 타깃을 제공합니다.
 
@@ -16,12 +15,12 @@
 전체 [목록](https://nlog-project.org/config/?tab=targets&search=package:nlog.windows.forms)을 참고하세요.
 
 ## 확장 등록
-[NLog.Windows.Forms](https://www.nuget.org/packages/NLog.Windows.Forms/) NuGet 패키지를 설치하고 [확장 어셈블리를 등록](https://github.com/NLog/NLog/wiki/Register-your-custom-component)합니다.
+[NLog.Windows.Forms.Async](https://www.nuget.org/packages/NLog.Windows.Forms.Async/) NuGet 패키지를 설치하고 [확장 어셈블리를 등록](https://github.com/NLog/NLog/wiki/Register-your-custom-component)합니다.
 
 `NLog.config` 파일에서 설정을 불러오는 경우, `<extensions>` 섹션에 확장을 등록합니다:
 ```xml
 <extensions>
-  <add assembly="NLog.Windows.Forms"/>
+  <add assembly="NLog.Windows.Forms.Async"/>
 </extensions>
 ```
 

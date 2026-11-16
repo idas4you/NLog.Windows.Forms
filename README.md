@@ -1,9 +1,8 @@
 # NLog.Windows.Forms
 **English** | [한국어](https://github.com/idas4you/NLog.Windows.Forms/blob/master/README.ko.md)
 
-[![Version](https://badge.fury.io/nu/NLog.Windows.Forms.svg)](https://www.nuget.org/packages/NLog.Windows.Forms)
-[![CI](https://github.com/NLog/NLog.Windows.Forms/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/NLog/NLog.Windows.Forms/actions/workflows/ci.yml)
-[![codecov.io](https://codecov.io/github/NLog/NLog.Windows.Forms/coverage.svg?branch=master)](https://codecov.io/github/NLog/NLog.Windows.Forms?branch=master)
+[![Version](https://badge.fury.io/nu/NLog.Windows.Forms.Async.svg)](https://www.nuget.org/packages/NLog.Windows.Forms.Async)
+[![CI](https://github.com/idas4you/NLog.Windows.Forms/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/idas4you/NLog.Windows.Forms/actions/workflows/ci.yml)
 
 This package provides NLog targets for displaying log output in Windows Forms applications.
 
@@ -16,12 +15,12 @@ This package provides NLog targets for displaying log output in Windows Forms ap
 See [list](https://nlog-project.org/config/?tab=targets&search=package:nlog.windows.forms)
 
 ## Register Extension
-Install the [NLog.Windows.Forms](https://www.nuget.org/packages/NLog.Windows.Forms/) NuGet package and [register the extension-assembly](https://github.com/NLog/NLog/wiki/Register-your-custom-component).
+Install the [NLog.Windows.Forms.Async](https://www.nuget.org/packages/NLog.Windows.Forms.Async/) NuGet package and [register the extension-assembly](https://github.com/NLog/NLog/wiki/Register-your-custom-component).
 
 When loading configuration from `NLog.config` file, then register the extension in the <extensions> section:
 ```xml
 <extensions>
-  <add assembly="NLog.Windows.Forms"/>
+  <add assembly="NLog.Windows.Forms.Async"/>
 </extensions>
 ```
 
