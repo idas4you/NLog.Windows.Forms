@@ -1,4 +1,6 @@
 # NLog.Windows.Forms
+**English** | [한국어](https://github.com/idas4you/NLog.Windows.Forms/blob/master/README.ko.md)
+
 [![Version](https://badge.fury.io/nu/NLog.Windows.Forms.svg)](https://www.nuget.org/packages/NLog.Windows.Forms)
 [![CI](https://github.com/NLog/NLog.Windows.Forms/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/NLog/NLog.Windows.Forms/actions/workflows/ci.yml)
 [![codecov.io](https://codecov.io/github/NLog/NLog.Windows.Forms/coverage.svg?branch=master)](https://codecov.io/github/NLog/NLog.Windows.Forms?branch=master)
