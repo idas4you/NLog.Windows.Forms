@@ -8,7 +8,7 @@
 This package provides NLog targets for displaying log output in Windows Forms applications.
 
 - [RichTextBoxTarget](https://github.com/NLog/NLog.Windows.Forms/wiki/RichTextBoxTarget): Displays log messages in a RichTextBox control with colorhighlighting.
-- `AsyncRichTextBoxTarget`: Displays log messages in a RichTextBox control using batched background processing.
+- [AsyncRichTextBoxTarget](https://github.com/idas4you/NLog.Windows.Forms/blob/master/docs/AsyncRichTextBoxTarget.md): Displays log messages in a RichTextBox control using batched background processing.
 - [MessageBoxTarget](https://github.com/NLog/NLog.Windows.Forms/wiki/MessageBoxTarget): Displays log messages in message boxes.
 - [FormControlTarget](https://github.com/NLog/NLog.Windows.Forms/wiki/FormControlTarget): Displays log messages in the `Text` property of a Windows Forms control.
 - [ToolStripItemTarget](https://github.com/NLog/NLog.Windows.Forms/wiki/ToolStripItemTarget): Displays log messages in the `Text` property of a `ToolStripItem`.
@@ -49,3 +49,5 @@ var richTextTarget = new NLog.Windows.Forms.AsyncRichTextBoxTarget
 - `Interval` is the processing interval in milliseconds.
 - Use a smaller value for more immediate UI updates.
 - Use a larger value to reduce update frequency under high log volume.
+
+See the [AsyncRichTextBoxTarget documentation](https://github.com/idas4you/NLog.Windows.Forms/blob/master/docs/AsyncRichTextBoxTarget.md) for the XML configuration and the differences from `RichTextBoxTarget`.

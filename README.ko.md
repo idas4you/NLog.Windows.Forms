@@ -8,7 +8,7 @@
 이 패키지는 Windows Forms 애플리케이션에 로그 출력을 표시하는 NLog 타깃을 제공합니다.
 
 - [RichTextBoxTarget](https://github.com/NLog/NLog.Windows.Forms/wiki/RichTextBoxTarget): 로그 메시지를 RichTextBox 컨트롤에 색상 강조와 함께 표시합니다.
-- `AsyncRichTextBoxTarget`: 로그 메시지를 백그라운드에서 묶어 처리한 뒤 RichTextBox 컨트롤에 표시합니다.
+- [AsyncRichTextBoxTarget](docs/AsyncRichTextBoxTarget.ko.md): 로그 메시지를 백그라운드에서 묶어 처리한 뒤 RichTextBox 컨트롤에 표시합니다.
 - [MessageBoxTarget](https://github.com/NLog/NLog.Windows.Forms/wiki/MessageBoxTarget): 로그 메시지를 메시지 상자로 표시합니다.
 - [FormControlTarget](https://github.com/NLog/NLog.Windows.Forms/wiki/FormControlTarget): 로그 메시지를 Windows Forms 컨트롤의 `Text` 속성에 표시합니다.
 - [ToolStripItemTarget](https://github.com/NLog/NLog.Windows.Forms/wiki/ToolStripItemTarget): 로그 메시지를 `ToolStripItem`의 `Text` 속성에 표시합니다.
@@ -49,3 +49,5 @@ var richTextTarget = new NLog.Windows.Forms.AsyncRichTextBoxTarget
 - `Interval`은 처리 주기이며 단위는 밀리초입니다.
 - 값을 작게 하면 UI에 더 빨리 반영됩니다.
 - 값을 크게 하면 로그가 많을 때 갱신 횟수를 줄일 수 있습니다.
+
+XML 설정 방법과 `RichTextBoxTarget`과의 차이는 [AsyncRichTextBoxTarget 문서](docs/AsyncRichTextBoxTarget.ko.md)를 참고하세요.
