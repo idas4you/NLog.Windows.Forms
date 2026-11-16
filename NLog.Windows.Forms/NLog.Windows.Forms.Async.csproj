@@ -4,7 +4,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<AssemblyTitle>NLog.Windows.Forms.Async</AssemblyTitle>
 		<AssemblyVersion>6.0.0.0</AssemblyVersion>
-		<Version>6.10.0</Version>
+		<Version>6.10.1</Version>
 		<Company>NLog</Company>
 		<Product>NLog.Windows.Forms</Product>
 		<Description>Extend NLog with targets for Windows Forms applications. For example: writing to a richtextbox or raising alert popups. </Description>
@@ -23,8 +23,9 @@
 		<PackageReleaseNotes>
 			Changelog:
 
-			- Added NET10 targetframework
+			- Merged upstream NLog.Windows.Forms 6.2.2
 			- Updated NLog to 6.2.2
+			- AsyncRichTextBoxTarget is now registered as "AsyncRichTextBox" (was "RichTextBox"). Update xsi:type in NLog.config if you used the async target from XML.
 		</PackageReleaseNotes>
 
 		<SignAssembly>true</SignAssembly>
@@ -39,7 +40,7 @@
 		<EnableTrimAnalyzer>true</EnableTrimAnalyzer>
 		<IsTrimmable Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))">true</IsTrimmable>
 		<IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
-		<FileVersion>6.0.3</FileVersion>
+		<FileVersion>6.10.1</FileVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
